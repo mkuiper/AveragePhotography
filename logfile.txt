@@ -1,1 +1,2 @@
-Finish of image averaging:
+Starting timelapse on 2016-09-02 at 07:32
+Location: Test_Kitchen Time interval between shots: 300 seconds
