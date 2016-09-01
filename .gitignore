@@ -1,3 +1,10 @@
+# Timelapse files to ignore:
+*.tif
+*.jpg
+*.png
+WorkingDirectory/
+FrameArchive/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

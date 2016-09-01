@@ -1,0 +1,70 @@
+#!/bin/bash 
+
+INTERVAL=100 
+LOCATION="TestKitchen"
+
+TOPDIR=/$HOME/Desktop/AveragePhotography/
+WRKDIR=/$TOPDIR/WorkingDirectory/
+ARCHIVE=/$TOPDIR/FrameArchive/
+
+ 
+DATE=`date +%Y%m%d`
+# keep record of start date:
+OLDDATE=$DATE
+echo $DATE, $OLDDATE
+
+python MakeRefPic.py
+
+d=0
+
+while [ $d -lt 500 ]
+do 
+
+ COUNTER=0
+
+while [ "$DATE" == "$OLDDATE" ] 
+do
+    let COUNTER=COUNTER+1 
+    DATE=`date +%Y%m%d`
+
+# grab 3 photos for HDR:
+    echo "grabbing images for HDR"  
+    python CameraTest2.py 
+
+    echo "aligning images"
+# uses reference image as first image 
+    align_image_stack -i -a ALIGN_ Ref_image.jpg temp_image*
+
+    rm ALIGN_0000.tif
+    echo "making HDR image out of aligned images"
+    enfuse --output aligned.tif ALIGN_*
+
+    filename=$(printf "%s/%s_%04d.tif" "$WRKDIR" "$DATE" "$COUNTER" )
+    mv aligned.tif $filename
+
+    rm temp_image* ALIGN_*
+    
+    sleep $INTERVAL
+ done
+ 
+#>----------------------
+
+ cd $WRKDIR
+ 
+ imagename=$(printf "%s_%s.tif" "$LOCATION" "$OLDDATE" )
+ convert *.tif -average $imagename
+ 
+ convert $imagename $TOPDIR/Ref_image.jpg
+ mv $imagename $ARCHIVE  
+ rm *.tif *.jpg
+
+ echo $OLDDATE
+ DATE=`date +%Y%m%d`
+ OLDDATE=$DATE
+
+ cd $TOPDIR
+ echo $DATE, $OLDDATE, $d "done"
+ d=$(( d+1 ))
+
+done 
+
