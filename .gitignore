@@ -3,7 +3,7 @@
 *.jpg
 *.png
 WorkingDirectory/
-FrameArchive/
+FrameArchive/ 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
