@@ -7,6 +7,9 @@ LOCATION="Test_Kitchen"
 # image processing time might take longer than the interval.   
 INTERVAL=300
 
+# Stop at midnight flag
+MIDNIGHT="True"
+
 # directory paths:
 TOPDIR=/$HOME/Desktop/AveragePhotography/
 WRKDIR=/$TOPDIR/WorkingDirectory/

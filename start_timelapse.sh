@@ -35,8 +35,12 @@ echo $(printf "Starting timelapse on %s at %s " "$DATE" "$TIME" ) >>logfile.txt
 echo $(printf "Location: %s    Time interval between shots: %s seconds " "$LOCATION" "$INTERVAL" ) >>logfile.txt
 
 # Take initial reference image
-echo "-taking intial reference image for alignments. "
-raspistill -p 10,10,640,480 -ev -4 -o  Ref_image.jpg
+if [ -f "Ref_image.jpg" ]; then
+ echo "-reference image present. "
+else 
+ echo "-taking intial reference image for alignments. "
+ raspistill -p 10,10,640,480 -ev -4 -o  Ref_image.jpg
+fi
 
 # Checks for new day; (timelapse needs to be restarted daily in crontab).
 COUNTER=0
@@ -98,3 +102,4 @@ while [ "$DATE" == "$STARTDATE" ]
 
  echo "It is a new day! Timelaspe stopping. Make sure to set schedule in crontab."
  echo $(printf "Finishing daily timelapse on %s \n" "$DATE") >>logfile.txt
+
