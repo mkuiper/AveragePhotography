@@ -13,3 +13,12 @@ Location: Test_Kitchen Time interval between shots: 300 seconds
 Pause flag present: stopping time lapse at 2016-09-04_17.04
 Finish of image averaging:
 Processing time: 2213 seconds for 116 images
+
+Processing time: 2669 seconds for 150 images
+Start of image averaging: 2016-09-06 22:41
+Finish of image averaging: 2016-09-06_23:14
+Processing time: 2013 seconds for 150 images
+Start of image averaging: 2016-09-06 23:54
+Start of image averaging: 2016-09-07 00:01
+
+-----------------------
