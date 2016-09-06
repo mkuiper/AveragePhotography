@@ -35,12 +35,12 @@ echo $(printf "Starting timelapse on %s at %s " "$DATE" "$TIME" ) >>logfile.txt
 echo $(printf "Location: %s    Time interval between shots: %s seconds " "$LOCATION" "$INTERVAL" ) >>logfile.txt
 
 # Take initial reference image
-if [ -f "Ref_image.jpg" ]; then
- echo "-reference image present. "
-else 
- echo "-taking intial reference image for alignments. "
- raspistill -p 10,10,640,480 -ev -4 -o  Ref_image.jpg
-fi
+#if [ -f "Ref_image.jpg" ]; then
+# echo "-reference image present. "
+#else 
+# echo "-taking intial reference image for alignments. "
+# raspistill -p 10,10,640,480 -ev -4 -o  Ref_image.jpg
+#fi
 
 # Checks for new day; (timelapse needs to be restarted daily in crontab).
 COUNTER=0
@@ -52,15 +52,17 @@ while [ "$DATE" == "$STARTDATE" ]
 
 # Take photos for HDR:
   echo "-grabbing images for HDR"
-  raspistill -p 10,10,320,240 -ISO 100 -ev  0  -q 100  -o temp_image1.jpg
-  raspistill -p 10,10,320,240 -ISO 100 -ev  24 -q 100  -o temp_image2.jpg
-  raspistill -p 10,10,320,240 -ISO 100 -ev -24 -q 100  -o temp_image3.jpg
+  raspistill -p 10,10,320,240 -ev  0  -q 100  -o temp_image1.jpg
+  raspistill -p 10,10,320,240 -ev  24 -q 100  -o temp_image2.jpg
+  raspistill -p 10,10,320,240 -ev -24 -q 100  -o temp_image3.jpg
+  raspistill -p 10,10,320,240 -ev -12 -q 100  -o temp_image4.jpg
+
 
 # Align image batch (uses reference image as first image):
   echo "-aligning images"
-  align_image_stack -i -a ALIGN_ Ref_image.* temp_image*
+  align_image_stack -i -a ALIGN_  temp_image*
   # remove aligned reference image:
-  rm ALIGN_0000.tif
+  # rm ALIGN_0000.tif
 
 # Make HDR image from aligned images:
   echo "-making HDR image out of aligned images"

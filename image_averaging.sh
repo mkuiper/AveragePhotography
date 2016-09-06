@@ -53,5 +53,5 @@ FINISH=`date +%Y-%m-%d_%H:%M`
 time2=`date +%s`
 let time3=" $time2 - $time1 "
 echo $(printf "Finish of image averaging: %s \n"  "$FINISH") >> logfile.txt 
-echo $(printf "Processing time: %s seconds for %s images \n"  "$time3" "$num")
+echo $(printf "Processing time: %s seconds for %s images \n"  "$time3" "$num") >> logfile.txt
 
