@@ -1,6 +1,53 @@
-Still to do! 
+Averaged Photography Timelapse.  
 
 
+
+
+This project is designed to set up a cheap timelapse camera based on 
+the raspberry pi. 
+
+
+16/32GB  micro sd card. 
+
+Noobs
+
+Programs to install: 
+sudo apt-get update
+sudo apt-get install imagemagick
+sudo apt-get install enfuse
+sudo apt-get install gnome-schedule
 
 Increase Swap size 
+
+
+
+A regular timelapse simply takes a series of time-delayed images and 
+plays them back as a movie, greatly speeding up the scene. 
+Averaged timelapse works differently in that many images are averaged to 
+produce just one image per day or less, which in turn is used to make a movie. 
+The advantage of 
+
+
+In order to run averaged timelapse we need to set up daily cron jobs using the 
+gnome-schedule GUI. 
+
+start_timelapse.sh 
+
+stop_timelapse.sh 
+
+image_averaging.sh
+
+upload_image.sh 
+
+
+
+
+
+
+
+
+
+
+
+
 
