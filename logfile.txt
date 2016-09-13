@@ -24,3 +24,19 @@ Start of image averaging: 2016-09-07 00:01
 -----------------------
 Starting timelapse on 2016-09-07 at 09:00
 Location: Test_Kitchen Time interval between shots: 300 seconds
+Starting timelapse on 2016-09-12 at 22:27
+Location: Test_Kitchen Time interval between shots: 200 seconds
+Start of image averaging: 2016-09-12 23:52
+Finish of image averaging: 2016-09-12_23:53
+Processing time: 67 seconds for 15 images
+Starting timelapse on 2016-09-13 at 07:40
+Location: Test_Kitchen Time interval between shots: 200 seconds
+Pause flag present: stopping time lapse at 2016-09-13_09.00
+Start of image averaging: 2016-09-13 22:02
+Finish of image averaging: 2016-09-13_22:04
+Processing time: 123 seconds for 16 images
+Starting timelapse on 2016-09-13 at 23:50
+Location: Test_Kitchen Time interval between shots: 200 seconds
+Pause flag present: stopping time lapse at 2016-09-14_00.03
+Starting timelapse on 2016-09-14 at 06:30
+Location: Test_Kitchen Time interval between shots: 200 seconds

@@ -1,8 +1,6 @@
 #!/bin/bash
 # A script to do the average processing of images in the working directory.
 
-cd /home/pi/Desktop/AveragePhotography/
-
 if [ -f "Timelapse_Config.txt" ]; then
  source "Timelapse_Config.txt"
 else 
@@ -16,7 +14,7 @@ DATE=`date +%Y-%m-%d`
 TIME=`date +%H:%M`
 time1=`date +%s`
 
-echo $(printf "Start of image averaging: %s  %s"  "$DATE" "$TIME") >>logfile.txt
+echo $(printf "Start image averaging: %s  %s"  "$DATE" "$TIME") >>logfile.txt
 echo "-making daily average image"
 
 
@@ -47,11 +45,12 @@ cp $AVEIMG $TOPDIR/Ref_image.jpg
 cp $AVEIMG $ARCHIVE
 
 rm tmp.mpc tmp.cache
+rm *.jpg
 
 cd $TOPDIR
 FINISH=`date +%Y-%m-%d_%H:%M`
 time2=`date +%s`
 let time3=" $time2 - $time1 "
-echo $(printf "Finish of image averaging: %s \n"  "$FINISH") >> logfile.txt 
+
 echo $(printf "Processing time: %s seconds for %s images \n"  "$time3" "$num") >> logfile.txt
 

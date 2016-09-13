@@ -5,7 +5,7 @@ LOCATION="Test_Kitchen"
 
 # Time interval in seconds between HDR shots. Careful as 
 # image processing time might take longer than the interval.   
-INTERVAL=300
+INTERVAL=200
 
 # Stop at midnight flag
 MIDNIGHT="True"

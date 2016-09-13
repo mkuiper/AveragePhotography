@@ -6,9 +6,6 @@
 
 # You should only have to edit the Timelapse_Config.txt file. 
 
-cd /home/pi/Desktop/AveragePhotography/
-
-
 # Read in configuration variables.  
 if [ -f "Timelapse_Config.txt" ]; then
  source "Timelapse_Config.txt"
@@ -16,6 +13,7 @@ else
  echo " Can't see configuration file: Timelapse_Config.txt. Exiting." 
  exit 
 fi
+
 #>--------------------------------------------------------------------
 cd $TOPDIR
 
@@ -53,11 +51,9 @@ while [ "$DATE" == "$STARTDATE" ]
 # Take photos for HDR:
   echo "-grabbing images for HDR"
   raspistill -p 10,10,320,240 -ev  0  -q 100  -o temp_image1.jpg
-  raspistill -p 10,10,320,240 -ev  24 -q 100  -o temp_image2.jpg
-  raspistill -p 10,10,320,240 -ev -24 -q 100  -o temp_image3.jpg
-  raspistill -p 10,10,320,240 -ev -12 -q 100  -o temp_image4.jpg
-
-
+  raspistill -p 10,10,320,240 -ev  18 -q 100  -o temp_image2.jpg
+  raspistill -p 10,10,320,240 -ev -18 -q 100  -o temp_image3.jpg
+ 
 # Align image batch (uses reference image as first image):
   echo "-aligning images"
   align_image_stack -i -a ALIGN_  temp_image*
