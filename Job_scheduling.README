@@ -1,11 +1,8 @@
 Averaged Photography Timelapse.  
 
 
-
-
 This project is designed to set up a cheap timelapse camera based on 
 the raspberry pi. 
-
 
 16/32GB  micro sd card. 
 
@@ -46,6 +43,9 @@ stop_timelapse.sh
 darkness_check.sh   - checks image has certain brightness threshold. 
 convert <image> -colorspace Gray -format '%[fx.quantumrange*image.mean]' info:
 convert Test_Kitchen_2016-09-13.jpg -colorspace gray -resize 1x1 -format '%[pixel:p{0,0}]' info:
+
+turn off HDMI?? while taking timelapse? apparently saves a lot of power.   
+
 
 image_averaging.sh      - take batch of images to produce one averaged image
 
