@@ -1,14 +1,14 @@
 # Timelapse config file.
 
 # Short description of location to be used in file labeling
-LOCATION="Test_Kitchen"
+LOCATION="Swanston_GertrudeSt"
 
 # Time interval in seconds between HDR shots. Careful as 
 # image processing time might take longer than the interval.   
-INTERVAL=200
+INTERVAL=230
 
 # Stop at midnight flag
-MIDNIGHT="True"
+# MIDNIGHT="True"
 
 # directory paths:
 TOPDIR=/$HOME/Desktop/AveragePhotography/

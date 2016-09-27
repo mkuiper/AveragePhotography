@@ -6,7 +6,7 @@
 
 # You should only have to edit the Timelapse_Config.txt file. 
 
-x# Read in configuration variables.  
+# Read in configuration variables.  
 if [ -f "Timelapse_Config.txt" ]; then
  source "Timelapse_Config.txt"
 else 

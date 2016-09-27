@@ -24,6 +24,10 @@ CONF_SWAPSIZE=2048
 sudo /etc/init.d/dphys-swapfile stop
 sudo /etc/init.d/dphys-swapfile start
 
+enable the camera
+enable ssh 
+
+Make sure to check timezone. 
 
 A regular timelapse simply takes a series of time-delayed images and 
 plays them back as a movie, greatly speeding up the scene. 
@@ -45,7 +49,6 @@ convert <image> -colorspace Gray -format '%[fx.quantumrange*image.mean]' info:
 convert Test_Kitchen_2016-09-13.jpg -colorspace gray -resize 1x1 -format '%[pixel:p{0,0}]' info:
 
 turn off HDMI?? while taking timelapse? apparently saves a lot of power.   
-
 
 image_averaging.sh      - take batch of images to produce one averaged image
 
