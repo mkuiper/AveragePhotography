@@ -1,70 +1,27 @@
-Starting timelapse on 2016-09-02 at 07:32
-Location: Test_Kitchen Time interval between shots: 300 seconds
-Pause flag present: stopping time lapse at 2016-09-02_19.03
-Finish of image averaging:
-Processing time: 1365 seconds for 133 images
-Starting timelapse on 2016-09-03 at 07:30
-Location: Test_Kitchen Time interval between shots: 300 seconds
-Pause flag present: stopping time lapse at 2016-09-03_19.00
-Finish of image averaging:
-Processing time: 1402 seconds for 132 images
-Starting timelapse on 2016-09-04 at 07:30
-Location: Test_Kitchen Time interval between shots: 300 seconds
-Pause flag present: stopping time lapse at 2016-09-04_17.04
-Finish of image averaging:
-Processing time: 2213 seconds for 116 images
-
-Processing time: 2669 seconds for 150 images
-Start of image averaging: 2016-09-06 22:41
-Finish of image averaging: 2016-09-06_23:14
-Processing time: 2013 seconds for 150 images
-Start of image averaging: 2016-09-06 23:54
-Start of image averaging: 2016-09-07 00:01
-
------------------------
-Starting timelapse on 2016-09-07 at 09:00
-Location: Test_Kitchen Time interval between shots: 300 seconds
-Starting timelapse on 2016-09-12 at 22:27
-Location: Test_Kitchen Time interval between shots: 200 seconds
-Start of image averaging: 2016-09-12 23:52
-Finish of image averaging: 2016-09-12_23:53
-Processing time: 67 seconds for 15 images
-Starting timelapse on 2016-09-13 at 07:40
-Location: Test_Kitchen Time interval between shots: 200 seconds
-Pause flag present: stopping time lapse at 2016-09-13_09.00
-Start of image averaging: 2016-09-13 22:02
-Finish of image averaging: 2016-09-13_22:04
-Processing time: 123 seconds for 16 images
-Starting timelapse on 2016-09-13 at 23:50
-Location: Test_Kitchen Time interval between shots: 200 seconds
-Pause flag present: stopping time lapse at 2016-09-14_00.03
-Starting timelapse on 2016-09-14 at 06:30
-Location: Test_Kitchen Time interval between shots: 200 seconds
-Starting timelapse on 2016-09-23 at 18:39
-Location: Test_Kitchen Time interval between shots: 200 seconds
-Starting timelapse on 2016-09-23 at 18:50
-Location: Test_Place Time interval between shots: 200 seconds
-Pause flag present: stopping time lapse at 2016-09-23_22.01
-Start image averaging: 2016-09-23 23:00
-Processing time: 185 seconds for 59 images
-Starting timelapse on 2016-09-24 at 06:00
-Location: Test_Place Time interval between shots: 200 seconds
-Pause flag present: stopping time lapse at 2016-09-24_22.00
-Start image averaging: 2016-09-24 23:00
-Processing time: 890 seconds for 284 images
-Starting timelapse on 2016-09-25 at 06:00
-Location: Test_Place Time interval between shots: 200 seconds
-Pause flag present: stopping time lapse at 2016-09-25_22.03
-Start image averaging: 2016-09-25 23:00
-Processing time: 1380 seconds for 289 images
-Starting timelapse on 2016-09-26 at 06:00
-Location: Test_Place Time interval between shots: 200 seconds
-Starting timelapse on 2016-09-26 at 15:18
-Location: Test_Place Time interval between shots: 200 seconds
-Pause flag present: stopping time lapse at 2016-09-26_15.31
-Start image averaging: 2016-09-26 23:00
-Processing time: 19 seconds for 2 images
-Starting timelapse on 2016-09-27 at 06:00
-Location: Lincoln_square Time interval between shots: 200 seconds
-Starting timelapse on 2016-09-27 at 13:23
-Location: Lincoln_square Time interval between shots: 200 seconds
+2016-10-02- 00:26 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 00:27 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 00:31 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 00:31 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 00:37 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 00:39 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 00:41 Location: Swanston_GertrudeSt Interval 230
+2016-10-02- 01:00 Location: Swanston_GertrudeSt Interval 230
+Pause flag present: stopping time lapse at 2016-10-02_08.39
+Date: 2016-10-02 Time: 08:55 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:01 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:06 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:07 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:11 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:52 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:54 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:56 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:58 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 09:59 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 10:02 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 12:16 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 12:17 Location: Swanston_GertrudeSt Interval: 230
+Date: 2016-10-02 Time: 12:26 Location: Test_ Interval: 120
+Date: 2016-10-02 Time: 13:39 Location: Test_ Interval: 120
+Date: 2016-10-02 Time: 14:00 Location: Test_ Interval: 120
+Start image averaging: 2016-10-02 21:00
+Processing time: 593 seconds for 164 images

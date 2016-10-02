@@ -10,7 +10,7 @@
 if [ -f "Timelapse_Config.txt" ]; then
  source "Timelapse_Config.txt"
 else 
- echo " Can't see configuration file: Timelapse_Config.txt. Exiting." 
+ echo "Can't see configuration file: Timelapse_Config.txt. Exiting." >> last_mesg.txt 
  exit 
 fi
 
@@ -19,7 +19,7 @@ cd $TOPDIR
 
 # Cleanup pause flag from previous run:
 if [ -f "pause_timelapse.txt" ]; then
- echo "Starting timelapse: found pause flag, - removing "
+ echo "Starting timelapse: found pause flag, - removing" >> last_mesg.txt
  rm pause_timelapse.txt
 fi
 
@@ -29,47 +29,65 @@ STARTDATE=`date +%Y-%m-%d`
 DATE=$STARTDATE
 TIME=`date +%H:%M`
 
-echo $(printf "Starting timelapse on %s at %s " "$DATE" "$TIME" ) >>logfile.txt 
-echo $(printf "Location: %s    Time interval between shots: %s seconds " "$LOCATION" "$INTERVAL" ) >>logfile.txt
+# Record to log file:
+echo $(printf "Date: %s Time: %s Location: %s Interval: %s  " "$DATE" "$TIME" "$LOCATION" "$INTERVAL" ) >>logfile.txt 
 
-# Take initial reference image
-#if [ -f "Ref_image.jpg" ]; then
-# echo "-reference image present. "
-#else 
-# echo "-taking intial reference image for alignments. "
-# raspistill -p 10,10,640,480 -ev -4 -o  Ref_image.jpg
-#fi
+# Take initial alignment reference image if not present:
+if [ -f "Ref_image.jpg" ]; then
+ echo "-reference image present" 
+else 
+ echo "-taking intial reference image for alignments" 
+ raspistill -p 10,10,640,480 -vf -hf -ev -4 -o  Ref_image.jpg 
+fi
 
-# Checks for new day; (timelapse needs to be restarted daily in crontab).
+# Take series of timelapse images until told to stop:
+#>--------------------------------------------------------------------
 COUNTER=0
-while [ "$DATE" == "$STARTDATE" ]
- do
+while : 
+do
   let COUNTER=COUNTER+1  # a counter for file labelling.
   DATE=`date +%Y-%m-%d`
   time1=`date +%s`       # take time to figure out image processing time
 
-# Take photos for HDR:
-  echo "-grabbing images for HDR"
-  raspistill -p 10,10,320,240 -ev  0  -q 100  -o temp_image1.jpg
-  raspistill -p 10,10,320,240 -ev  18 -q 100  -o temp_image2.jpg
-  raspistill -p 10,10,320,240 -ev -18 -q 100  -o temp_image3.jpg
- 
-# Align image batch (uses reference image as first image):
-  echo "-aligning images"
-  align_image_stack -i -a ALIGN_  temp_image*
-  # remove aligned reference image:
-  # rm ALIGN_0000.tif
+# Capture images for processing including HDR (High Dynamic Range): 
+# (set in Timelapse_config file)  
+  echo "-grabbing images for HDR" 
+  $Capture1
+  $Capture2
+  $Capture3 
+  $Capture4
+  $Capture5
 
-# Make HDR image from aligned images:
-  echo "-making HDR image out of aligned images"
+# Align image batch (uses reference image as first image):
+ if [ "$ALIGN" -eq "1" ]; then
+  echo "-aligning images" >> last_mesg.txt
+  align_image_stack -i -a ALIGN_  Ref_image.jpg temp_image*
+  # remove aligned reference image: (not to be included in the averaging) 
+  rm ALIGN_0000.tif
   enfuse --output aligned.tif ALIGN_*
+ fi
+
+# Make HDR image from images:
+ echo "-making HDR image out of aligned images" 
+ if [ "$ALIGN" -eq "0" ]; then
+  enfuse --output aligned.tif temp_*.jpg
+ fi  
 
 # Label HDR image with timestamp, move to Working directory & cleanup old files.
-  TIMENOW=`date +%Y-%m-%d_%H.%M`
-  filename=$(printf "%s/%s_%s_%04d.jpg" "$WRKDIR" "$LOCATION" "$TIMENOW" "$COUNTER" )
-# convert to jpg and cleanup:
+ TIMENOW=`date +%Y-%m-%d_%H.%M`
+ filename=$(printf "%s/%s_%s_%04d.jpg" "$WRKDIR" "$LOCATION" "$TIMENOW" "$COUNTER" )
+
+# Check light levels from gray-scaled image:
+ L=$(convert aligned.tif -colorspace gray -resize 1x1 -format '%[pixel:p{0,0}]' info: |sed "s/[^0-9,]//g" | awk -F',' '{print $1}') 
+ echo $(printf "Light level of image: %s %s" "$L" "$TIMENOW") >> last_mesg.txt
+
+ if [ "$L" -ge "$LIGHT_LOWER" ] && [ "$L" -le "$LIGHT_UPPER" ] || [ "$LIGHT_CUTOFF" -eq "0" ]; then
   convert aligned.tif -quality 100 $filename
-  rm temp_image* ALIGN_* aligned.tif
+  echo "-saving image to stack"
+ fi 
+
+# Clean up files:
+rm temp_image* ALIGN_* aligned.tif
 
 # A conditional test to stop the timelapse (checks for presence of flag file).
   if [ -f "pause_timelapse.txt" ]; then
@@ -92,12 +110,12 @@ while [ "$DATE" == "$STARTDATE" ]
    echo $(printf "Interval time: %s   processing time: %s" "$INTERVAL" "$time3")
   fi
 
- done
+# Sanity check: -stop if too many images gathered without processing.
+ if [ $COUNTER -gt "5000" ]; then 
+   echo "Warning: over 5000 images captured without image averaging: Are you sure you set thing up right?"
+   echo $(printf "5000 images generated without processing: stopping time lapse at %s" "$TIMENOW" ) >>logfile.txt
+   exit
+ fi 
 
-# Stopping timelapse: Make sure to set up job schedule in crontab.
-# -this makes it easier to schedule jobs during daylight hours, so
-#  not to waste space and processing on overly dark images.
-
- echo "It is a new day! Timelaspe stopping. Make sure to set schedule in crontab."
- echo $(printf "Finishing daily timelapse on %s \n" "$DATE") >>logfile.txt
+done
 

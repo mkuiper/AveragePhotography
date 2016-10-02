@@ -1,24 +1,41 @@
 # Timelapse config file.
 
 # Short description of location to be used in file labeling
-LOCATION="Swanston_GertrudeSt"
+LOCATION="Test_"
 
-# Time interval in seconds between HDR shots. Careful as 
-# image processing time might take longer than the interval.   
-INTERVAL=230
+# Time interval in seconds between HDR shots. Note that  
+# image processing time might take longer than the time 
+# between shots.    
+INTERVAL=120
 
-# Stop at midnight flag
-# MIDNIGHT="True"
-
-# directory paths:
+# Directory paths:
 TOPDIR=/$HOME/Desktop/AveragePhotography/
 WRKDIR=/$TOPDIR/WorkingDirectory/
 ARCHIVE=/$TOPDIR/FrameArchive/
 
-# HDR capture profiles using raspistill
+# Image processing options:
+# Alignment of images
+# -can use 'align_image_stack' for better HDR results but does take more 
+# time to process. 0 for off, 1 for enabled. 
+ALIGN=0
+
+# HDR - high dynamic range. This requires at least 3 images, with under and over exposed samples. 
 # 
-HDR1="raspistill -p 10,10,320,240 -ISO 100 -ev  0  -q 100 -o temp_image1.jpg"
-HDR2="raspistill -p 10,10,320,240 -ISO 100 -ev  24 -q 100 -o temp_image2.jpg"
-HDR3="raspistill -p 10,10,320,240 -ISO 100 -ev -24 -q 100 -o temp_image3.jpg"
-HDR4=""
-HDR5=""
+#
+HDR=1 
+Capture1="raspistill -p 10,10,320,240 -hf -vf -ev  0   -q 100  -o temp_image1.jpg"
+Capture2="raspistill -p 10,10,320,240 -hf -vf -ev  18  -q 100  -o temp_image2.jpg"
+Capture3="raspistill -p 10,10,320,240 -hf -vf -ev -18  -q 100  -o temp_image3.jpg"
+Capture4=""
+Capture5=""
+
+
+# Light level cutoff
+# Option to ignore photographs beyond certain light levels. 0 for off, 1 for enabled. 
+# If enabled, the images will only be included in the daily average if the greyscaled 
+# image intensity fall between the upper and lower bounds. 0(black)-255(white) 
+LIGHT_CUTOFF=1
+LIGHT_UPPER=200
+LIGHT_LOWER=35 
+
+
