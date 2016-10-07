@@ -1,7 +1,7 @@
 # Timelapse config file.
 
 # Short description of location to be used in file labeling
-LOCATION="Test_"
+LOCATION="LincolnSquare_"
 
 # Time interval in seconds between HDR shots. Note that  
 # image processing time might take longer than the time 
@@ -36,6 +36,6 @@ Capture5=""
 # image intensity fall between the upper and lower bounds. 0(black)-255(white) 
 LIGHT_CUTOFF=1
 LIGHT_UPPER=200
-LIGHT_LOWER=35 
+LIGHT_LOWER=25 
 
 

@@ -25,3 +25,26 @@ Date: 2016-10-02 Time: 13:39 Location: Test_ Interval: 120
 Date: 2016-10-02 Time: 14:00 Location: Test_ Interval: 120
 Start image averaging: 2016-10-02 21:00
 Processing time: 593 seconds for 164 images
+Start image averaging: 2016-10-03 23:45
+Processing time: 0 seconds for 0 images
+Date: 2016-10-04 Time: 14:00 Location: Test_ Interval: 120
+Start image averaging: 2016-10-04 22:22
+Processing time: 649 seconds for 170 images
+Start image averaging: 2016-10-04 23:45
+Processing time: 0 seconds for 0 images
+Date: 2016-10-05 Time: 01:00 Location: Test_ Interval: 120
+Start image averaging: 2016-10-05 20:55
+Processing time: 1376 seconds for 391 images
+Start image averaging: 2016-10-05 21:45
+Processing time: 28 seconds for 10 images
+Start image averaging: 2016-10-05 23:45
+Processing time: 3 seconds for 2 images
+Date: 2016-10-06 Time: 01:00 Location: Test_ Interval: 120
+Pause flag present: stopping time lapse at 2016-10-06_23.31
+Start image averaging: 2016-10-06 23:45
+Processing time: 1027 seconds for 304 images
+Date: 2016-10-07 Time: 01:00 Location: Test_ Interval: 120
+Date: 2016-10-07 Time: 16:18 Location: Test_ Interval: 120
+Date: 2016-10-07 Time: 16:20 Location: LincolnSquare_ Interval: 120
+Date: 2016-10-07 Time: 16:21 Location: LincolnSquare_ Interval: 120
+Date: 2016-10-07 Time: 16:43 Location: LincolnSquare_ Interval: 120
