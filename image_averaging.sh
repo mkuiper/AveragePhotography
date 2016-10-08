@@ -17,6 +17,12 @@ time1=`date +%s`
 echo $(printf "Start image averaging: %s  %s"  "$DATE" "$TIME") >>logfile.txt
 echo "-making daily average image"
 
+#>---------------------------------------------------------------------
+# Option to turn of HDMI to save power. 
+if [ "$HDMI" -eq "1" ]; then
+ tvservice -o
+fi
+
 
 cd $WRKDIR
 

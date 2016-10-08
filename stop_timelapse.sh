@@ -15,6 +15,8 @@ else
 fi
 #>--------------------------------------------------------------------
 cd $TOPDIR
+# turn on HDMI 
+tvservice -p
 
 touch pause_timelapse.txt
 
