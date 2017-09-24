@@ -3,7 +3,7 @@
 #=====================================================================
 
 # Short description of location. (used for file names,-no white spaces)
-LOCATION="LincolnSquare"
+LOCATION="My_location"
 
 # Time interval in seconds between HDR shots.  
 INTERVAL=120
@@ -19,7 +19,7 @@ ARCHIVE=/$TOPDIR/FrameArchive/
 ALIGN=1
 
 # Power saving: Option to turn off HDMI to save power. 
-HDMI=1
+HDMI=0
 
 # HDR - high dynamic range. This requires at least 3 images, with under and over exposed samples. 
 HDR=1 
@@ -28,8 +28,8 @@ HDR=1
 Capture1="raspistill -p 10,10,320,240 -hf -vf -ev  0   -q 100  -o temp_image1.jpg"
 Capture2="raspistill -p 10,10,320,240 -hf -vf -ev  18  -q 100  -o temp_image2.jpg"
 Capture3="raspistill -p 10,10,320,240 -hf -vf -ev -18  -q 100  -o temp_image3.jpg"
-Capture4=""
-Capture5=""
+Capture4="raspistill -p 10,10,320,240 -hf -vf -ev  24  -q 100  -o temp_image4.jpg"
+Capture5="raspistill -p 10,10,320,240 -hf -vf -ev -24  -q 100  -o temp_image5.jpg"
 
 # Light level cutoff
 # Option to ignore photographs beyond certain light levels. (0 for off, 1 for enabled). 

@@ -10,8 +10,7 @@ sudo apt-get install -y imagemagick
 sudo apt-get install -y enfuse
 sudo apt-get install -y eog 
 sudo apt-get install -y gphoto2
-
-
+sudo apt-get install -y vim
 
 # User friendly scheduler and network manager
 sudo apt-get install -y network-manager
@@ -30,8 +29,6 @@ echo " ToDo checklist:"
 echo " -make sure to check the date and time."
 ##  install rpi2dng
 ## libjpeg
-## Adjust focus!
+
 ## ufraw ??
 ## ffmpeg ??
-
-
