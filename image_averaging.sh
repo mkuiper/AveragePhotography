@@ -26,6 +26,8 @@ fi
 
 cd $WRKDIR
 
+#cd FrameArchive 
+
 # make a list of file names
 fileArg=(`ls`)
 num=${#fileArg[*]}

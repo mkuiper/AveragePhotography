@@ -3,10 +3,10 @@
 #=====================================================================
 
 # Short description of location. (used for file names,-no white spaces)
-LOCATION="My_location"
+LOCATION="Location_Name"
 
 # Time interval in seconds between HDR shots.  
-INTERVAL=120
+INTERVAL=150
 
 # Directory paths:
 TOPDIR=/$HOME/Desktop/AveragePhotography/
@@ -16,7 +16,7 @@ ARCHIVE=/$TOPDIR/FrameArchive/
 # Image processing options:  (0 for off, 1 for enabled.)
 #--------------------------------------------------------------------
 # Image Alignment: uses 'align_image_stack' for better HDR results. 
-ALIGN=1
+ALIGN=0
 
 # Power saving: Option to turn off HDMI to save power. 
 HDMI=0
@@ -25,11 +25,26 @@ HDMI=0
 HDR=1 
 
 # Image capture commands:
-Capture1="raspistill -p 10,10,320,240 -hf -vf -ev  0   -q 100  -o temp_image1.jpg"
-Capture2="raspistill -p 10,10,320,240 -hf -vf -ev  18  -q 100  -o temp_image2.jpg"
-Capture3="raspistill -p 10,10,320,240 -hf -vf -ev -18  -q 100  -o temp_image3.jpg"
-Capture4="raspistill -p 10,10,320,240 -hf -vf -ev  24  -q 100  -o temp_image4.jpg"
-Capture5="raspistill -p 10,10,320,240 -hf -vf -ev -24  -q 100  -o temp_image5.jpg"
+##Capture1="raspistill -p 10,10,320,240 -hf -vf -ev  0   -q 100  -o temp_image1.jpg"
+Capture1="raspistill -p 10,10,320,240 -ev  0   -q 100  -o temp_image1.jpg"
+Capture2="raspistill -p 10,10,320,240 -ev  24  -q 100  -o temp_image2.jpg"
+Capture3="raspistill -p 10,10,320,240 -ev -24  -q 100  -o temp_image3.jpg"
+Capture4=""
+Capture5=""
+
+# Capture4="raspistill -p 10,10,320,240 -ev  12  -q 100  -o temp_image4.jpg"
+# Capture5="raspistill -p 10,10,320,240 -ev -12  -q 100  -o temp_image5.jpg"
+
+
+## For using webcam instead
+#webcam_config="-r 4000x3000 --no-banner -d /dev/video0 --skip 50 -F 5"
+#Capture1="fswebcam $webcam_config -s brightness=50%  -s contrast=20%    temp_image1.jpg"
+#Capture2="fswebcam $webcam_config -s brightness=15%  -s contrast=20%    temp_image2.jpg"
+#Capture3="fswebcam $webcam_config -s brightness=85%  -s contrast=20%    temp_image3.jpg"
+#Capture4="fswebcam $webcam_config -s brightness=5%   -s contrast=5%     temp_image4.jpg"
+#Capture5="fswebcam $webcam_config -s brightness=95%  -s contrast=10%    temp_image5.jpg"
+
+
 
 # Light level cutoff
 # Option to ignore photographs beyond certain light levels. (0 for off, 1 for enabled). 

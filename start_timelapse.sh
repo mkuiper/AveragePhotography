@@ -41,7 +41,7 @@ if [ -f "Ref_image.jpg" ]; then
  echo "-reference image present" 
 else 
  echo "-taking intial reference image for alignments" 
- raspistill -p 10,10,640,480 -vf -hf -ev -4 -o Ref_image.jpg 
+ raspistill -p 10,10,640,480 -ev -4 -o Ref_image.jpg 
 fi
 
 # Take series of timelapse images until told to stop:
