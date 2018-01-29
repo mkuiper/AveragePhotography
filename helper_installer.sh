@@ -17,6 +17,9 @@ sudo apt-get install -y fswebcam
 sudo apt-get install -y network-manager
 sudo apt-get install -y gnome-schedule
 
+sudo apt-get install -y ssmtp
+sudo apt-get install -y mpack
+
 # Increase swapsize
 sudo sed -i 's/.*CONF_SWAPSIZE=.*/CONF_SWAPSIZE=2048/' /etc/dphys-swapfile
 sudo /etc/init.d/dphys-swapfile stop

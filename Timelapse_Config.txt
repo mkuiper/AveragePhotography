@@ -5,6 +5,9 @@
 # Short description of location. (used for file names,-no white spaces)
 LOCATION="PiCamX"
 
+# Email address to send pictures to: 
+
+
 # Time interval in seconds between HDR shots.  
 INTERVAL=150
 
@@ -18,41 +21,8 @@ ARCHIVE=/$TOPDIR/FrameArchive/
 # Image Alignment: uses 'align_image_stack' for better HDR results. 
 ALIGN=false
 
-# Power saving: Option to turn off HDMI to save power. 
-HDMI=false
-
-# HDR - high dynamic range. This requires at least 3 images, with under and over exposed samples. 
-HDR=true 
-
-# Image capture commands:
-##Capture1="raspistill -p 10,10,320,240 -hf -vf -ev  0   -q 100  -o temp_image1.jpg"
-
-flip="-hf -vf"
-camera="raspistill -q 100"
-
-
-Capture1="$camera -p 10,10,320,240 -ev   0 $flip  -o temp_image1.jpg"
-#Capture2="$camera -p 10,10,320,240 -ev  24 $flip  -o temp_image2.jpg"
-Capture2="$camera -p 10,10,320,240 -t 1000 -ex beach  $flip  -o temp_image2.jpg"
-Capture3="$camera -p 10,10,320,240 -ev -24 $flip  -o temp_image3.jpg"
-#Capture3="$camera -p 10,10,320,240 -t 4000 -ex beach  $flip  -o temp_image3.jpg"
-Capture4="$camera -p 10,10,320,240 -ev  12 $flip  -o temp_image4.jpg"
-#Capture5="$camera -p 10,10,320,240 -ev -12 $flip  -o temp_image4.jpg"
-Capture5="$camera -p 10,10,320,240 -t 12000 -ex verylong -drc med  $flip  -o temp_image5.jpg"
-
-Capture6=""
-Capture7=""
-
-
-## For using webcam instead
-#webcam_config="-r 4000x3000 --no-banner -d /dev/video0 --skip 50 -F 5"
-#Capture1="fswebcam $webcam_config -s brightness=50%  -s contrast=20%    temp_image1.jpg"
-#Capture2="fswebcam $webcam_config -s brightness=15%  -s contrast=20%    temp_image2.jpg"
-#Capture3="fswebcam $webcam_config -s brightness=85%  -s contrast=20%    temp_image3.jpg"
-#Capture4="fswebcam $webcam_config -s brightness=5%   -s contrast=5%     temp_image4.jpg"
-#Capture5="fswebcam $webcam_config -s brightness=95%  -s contrast=10%    temp_image5.jpg"
-
-
+# Subtract background: creates second set of averaging subtracting averaged background. . 
+BGROUND=false
 
 # Light level cutoff
 # Option to ignore photographs beyond certain light levels. Useful if scenes are too dark. 
@@ -61,4 +31,45 @@ Capture7=""
 LIGHT_LOWER=50 
 LIGHT_UPPER=200
 
+# Power saving: Option to turn off HDMI to save power. 
+HDMI=false
+
+# HDR - high dynamic range. This requires at least 3 images, with under and over exposed samples. 
+HDR=true 
+
+# Image capture commands: 
+cam="picam"  # can also use 'webcam'
+
+flip="-hf -vf"
+camera="raspistill -q 100"
+preview="-p 10,10,320,240"
+
+  EvStops='0 -12 12 -24 24'
+  Exposure='beach verylong'
+  BrStops='10  25 50 75 90'
+  n=0
+
+# Construct Camera Command:
+if [ $cam == 'picam' ]
+  then 
+  for EV in $EvStops
+   do 
+    n=$[n+1]
+    Capture$n="$camera $preview -ev $EV $flip -o temp_image$n.jpg"  
+#   Capture$n="$camera $preview -t $TIME -ex $flip -ev $EV -o temp_image$n.jpg" # experimental  
+   done
+fi
+
+if [ $cam == 'webcam' ]
+then
+  for BR in $BrStops
+   do 
+    n=$[n+1]
+#  For using Webcam instead:
+    webcam_config="-r 4000x3000 --no-banner -d /dev/video0 --skip 50 -F 5"
+    Capture$n="fswebcam $webcam_config -s brightness=$BR% -s contrast=20%  temp_image$n.jpg"  
+  done
+fi
+
+done
 
