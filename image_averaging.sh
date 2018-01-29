@@ -26,14 +26,13 @@ fi
 
 cd $WRKDIR
 
-
-# make a list of file names
+# Make a list of file names
 fileArg=(`ls`)
 num=${#fileArg[*]}
 convert ${fileArg[0]} tmp.mpc
 echo "${fileArg[0]}"
 
-# make a composite image of sequential frames
+# Make a composite image of sequential frames
 # (taken from www.imagemaagick.org/discorse-server/viewtopic.php?t=21279)
 i=1
 while [ $i -lt $num ]; do
@@ -51,10 +50,14 @@ convert tmp.mpc -quality 100 $AVEIMG
 cp $AVEIMG $TOPDIR/Ref_image.jpg
 cp $AVEIMG $ARCHIVE
 
+mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG  $EMAIL
+
+
 rm tmp.mpc tmp.cache
 rm *.jpg
 
 cd $TOPDIR
+
 FINISH=`date +%Y-%m-%d_%H:%M`
 time2=`date +%s`
 let time3=" $time2 - $time1 "

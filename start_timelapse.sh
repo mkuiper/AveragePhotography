@@ -93,6 +93,19 @@ if [ "$L" -ge "$LIGHT_LOWER" ] && [ "$L" -le "$LIGHT_UPPER" ]; then
  echo "-saving image to stack"
 fi 
 
+
+if [ "$BGROUND" == true ]; then
+# Create image with background removed. 
+
+composite $filename Ref_image.jpg -compose difference  diff_image0.jpg 
+
+fuzzfilename=$(printf "%s/%s_%s_%04d.png" "$FUZZDIR" "$LOCATION" "$TIMENOW" "$COUNTER" )
+
+convert diff_image0.jpg -fuzz 10% -transparent black  $fuzzfilename
+
+
+fi
+
 # Clean up files:
 rm temp_image*  aligned.tif
 
