@@ -7,8 +7,7 @@
 # You should only have to edit the Timelapse_Config.txt file. 
 ##
 
-# Read in configuration variables:-----------------------------------  
-if [ -f "Timelapse_Config.txt" ]; then
+if [ -f "Timelapse_Config.txt" ] ; then
  source "Timelapse_Config.txt"
 else 
  echo "Can't see configuration file: Timelapse_Config.txt. Exiting." \
@@ -19,12 +18,12 @@ cd $TOPDIR
 
 # Cleanup pause flag from previous run if present:-------------------
 echo "Starting timelapse." > last_mesg.txt
-if [ -f "pause_timelapse.txt" ]; then
+if [ -f "pause_timelapse.txt" ] ; then
  rm pause_timelapse.txt
 fi
 
 # Option to turn off hdmi to save power while taking photos:--------- 
-if [ "$HDMI" -eq "1" ]; then
+if [ "$HDMI" == true ] ; then
  tvservice -o
  echo "Turning off HDMI." > last_mesg.txt
 fi 
@@ -37,11 +36,13 @@ echo $(printf "Date: %s Time: %s Location: %s Interval: %s  " \
      "$DATE" "$TIME" "$LOCATION" "$INTERVAL" ) >>logfile.txt
 
 # Take initial alignment reference image if not present:-------------
-if [ -f "Ref_image.jpg" ]; then
- echo "-reference image present" 
-else 
- echo "-taking intial reference image for alignments" 
- raspistill -p 10,10,640,480 -ev -4 -o Ref_image.jpg 
+if [ "$ALIGN" == true ]; then
+ if [ -f "Ref_image.jpg" ]; then
+  echo "-reference image present" 
+ else 
+  echo "-taking intial reference image for alignments" 
+  raspistill -p 10,10,640,480 -ev -4 -hf -vf -o Ref_image.jpg 
+ fi
 fi
 
 # Take series of timelapse images until told to stop:
@@ -61,9 +62,11 @@ do
   $Capture3 
   $Capture4
   $Capture5
+  $Capture6
+  $Capture7
 
 # Align image batch (uses reference image as first image):
-if [ "$ALIGN" -eq "1" ]; then
+if [ "$ALIGN" == true ]; then
  echo "-aligning images" >> last_mesg.txt
  align_image_stack -i -a ALIGN_  Ref_image.jpg temp_image*
  rm ALIGN_0000.tif   # remove reference, -(not to be included in averaging)
@@ -72,7 +75,7 @@ fi
 
 # Make HDR image from images:
 echo "-making HDR image out of aligned images" 
-if [ "$ALIGN" -eq "0" ]; then
+if [ "$ALIGN" == false ]; then
  enfuse --output aligned.tif temp_*.jpg
 fi  
 
@@ -85,13 +88,17 @@ L=$(convert aligned.tif -colorspace gray -resize 1x1 -format '%[pixel:p{0,0}]' \
   info: |sed "s/[^0-9,]//g" | awk -F',' '{print $1}') 
 echo $(printf "Light level of image: %s %s" "$L" "$TIMENOW") > last_mesg.txt
 
-if [ "$L" -ge "$LIGHT_LOWER" ] && [ "$L" -le "$LIGHT_UPPER" ] || [ "$LIGHT_CUTOFF" -eq "0" ]; then
+if [ "$L" -ge "$LIGHT_LOWER" ] && [ "$L" -le "$LIGHT_UPPER" ]; then
  convert aligned.tif -quality 100 $filename
  echo "-saving image to stack"
 fi 
 
 # Clean up files:
-rm temp_image* ALIGN_* aligned.tif
+rm temp_image*  aligned.tif
+
+if [ "$ALIGN" == true ]; then
+ rm ALIGN_*
+fi
 
 # A conditional test to stop the timelapse (checks for presence of flag file).
 if [ -f "pause_timelapse.txt" ]; then

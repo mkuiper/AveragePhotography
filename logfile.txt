@@ -1,0 +1,29 @@
+Date: 2017-12-16 Time: 18:09 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:21 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:24 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:26 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:26 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:29 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:32 Location: PiCam02 Interval: 150
+Date: 2017-12-16 Time: 18:38 Location: PiCamX Interval: 150
+Date: 2017-12-16 Time: 21:20 Location: PiCamX Interval: 150
+Date: 2017-12-16 Time: 21:33 Location: PiCamX Interval: 150
+Pause flag present: stopping time lapse at 2017-12-17_01.02
+Start image averaging: 2017-12-17 01:30
+Processing time: 505 seconds for 82 images
+Date: 2017-12-17 Time: 03:00 Location: PiCamX Interval: 150
+Pause flag present: stopping time lapse at 2017-12-17_06.24
+Date: 2017-12-17 Time: 06:32 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 06:35 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 06:42 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 06:47 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 06:53 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 06:56 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 07:01 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 07:05 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 07:06 Location: PiCamX Interval: 150
+Date: 2017-12-17 Time: 07:09 Location: PiCamX Interval: 150
+Date: 2017-12-18 Time: 17:42 Location: PiCamX Interval: 150
+Date: 2017-12-18 Time: 23:16 Location: PiCamX Interval: 150
+Date: 2017-12-18 Time: 23:24 Location: PiCamX Interval: 150
+Date: 2017-12-18 Time: 23:49 Location: PiCamX Interval: 150

@@ -3,7 +3,7 @@
 #=====================================================================
 
 # Short description of location. (used for file names,-no white spaces)
-LOCATION="Location_Name"
+LOCATION="PiCamX"
 
 # Time interval in seconds between HDR shots.  
 INTERVAL=150
@@ -13,27 +13,35 @@ TOPDIR=/$HOME/Desktop/AveragePhotography/
 WRKDIR=/$TOPDIR/WorkingDirectory/
 ARCHIVE=/$TOPDIR/FrameArchive/
 
-# Image processing options:  (0 for off, 1 for enabled.)
+# Image processing options:
 #--------------------------------------------------------------------
 # Image Alignment: uses 'align_image_stack' for better HDR results. 
-ALIGN=0
+ALIGN=false
 
 # Power saving: Option to turn off HDMI to save power. 
-HDMI=0
+HDMI=false
 
 # HDR - high dynamic range. This requires at least 3 images, with under and over exposed samples. 
-HDR=1 
+HDR=true 
 
 # Image capture commands:
 ##Capture1="raspistill -p 10,10,320,240 -hf -vf -ev  0   -q 100  -o temp_image1.jpg"
-Capture1="raspistill -p 10,10,320,240 -ev  0   -q 100  -o temp_image1.jpg"
-Capture2="raspistill -p 10,10,320,240 -ev  24  -q 100  -o temp_image2.jpg"
-Capture3="raspistill -p 10,10,320,240 -ev -24  -q 100  -o temp_image3.jpg"
-Capture4=""
-Capture5=""
 
-# Capture4="raspistill -p 10,10,320,240 -ev  12  -q 100  -o temp_image4.jpg"
-# Capture5="raspistill -p 10,10,320,240 -ev -12  -q 100  -o temp_image5.jpg"
+flip="-hf -vf"
+camera="raspistill -q 100"
+
+
+Capture1="$camera -p 10,10,320,240 -ev   0 $flip  -o temp_image1.jpg"
+#Capture2="$camera -p 10,10,320,240 -ev  24 $flip  -o temp_image2.jpg"
+Capture2="$camera -p 10,10,320,240 -t 1000 -ex beach  $flip  -o temp_image2.jpg"
+Capture3="$camera -p 10,10,320,240 -ev -24 $flip  -o temp_image3.jpg"
+#Capture3="$camera -p 10,10,320,240 -t 4000 -ex beach  $flip  -o temp_image3.jpg"
+Capture4="$camera -p 10,10,320,240 -ev  12 $flip  -o temp_image4.jpg"
+#Capture5="$camera -p 10,10,320,240 -ev -12 $flip  -o temp_image4.jpg"
+Capture5="$camera -p 10,10,320,240 -t 12000 -ex verylong -drc med  $flip  -o temp_image5.jpg"
+
+Capture6=""
+Capture7=""
 
 
 ## For using webcam instead
@@ -47,11 +55,10 @@ Capture5=""
 
 
 # Light level cutoff
-# Option to ignore photographs beyond certain light levels. (0 for off, 1 for enabled). 
-# If enabled, the images will only be included in the daily average if the greyscaled 
-# image intensity fall between the upper and lower bounds. 0(black)-255(white) 
-LIGHT_CUTOFF=1
+# Option to ignore photographs beyond certain light levels. Useful if scenes are too dark. 
+# The images will only be included in the daily average if the greyscaled 
+# image intensity fall between the lower and upper bounds. 0(black)-255(white) 
+LIGHT_LOWER=50 
 LIGHT_UPPER=200
-LIGHT_LOWER=25 
 
 

@@ -19,14 +19,13 @@ echo "-making daily average image"
 
 #>---------------------------------------------------------------------
 # Option to turn of HDMI to save power. 
-if [ "$HDMI" -eq "1" ]; then
+if [ "$HDMI" == true ]; then
  tvservice -o
 fi
 
 
 cd $WRKDIR
 
-#cd FrameArchive 
 
 # make a list of file names
 fileArg=(`ls`)
