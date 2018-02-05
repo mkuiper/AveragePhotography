@@ -5,7 +5,7 @@
 # Short description of location. (used for file names,-no white spaces)
 LOCATION="PiCamX"
 
-# Email address to send pictures to: 
+# Email address to send pictures to: (set up /etc/smtp/smtp.conf) 
 EMAIL="picamtimelapse@gmail.com"
 
 # Time interval in seconds between HDR shots.  
@@ -39,28 +39,20 @@ HDMI=false
 HDR=true 
 
 # Image capture commands: 
-cam="picam"  # can also use 'webcam'
-
 flip="-hf -vf"
 camera="raspistill -q 100"
 preview="-p 10,10,320,240"
 
-  EvStops='0 -12 12 -24 24'
-  Exposure='beach verylong'
-  BrStops='10  25 50 75 90'
-  n=0
+ 
+# Construct Camera Capture commands:
+ Capture1="$camera $preview -ev 0   $flip -o temp_image1.jpg"  
+ Capture2="$camera $preview -ev 6   $flip -o temp_image2.jpg"  
+ Capture3="$camera $preview -ev 24  $flip -o temp_image3.jpg"  
+ Capture4="$camera $preview -ev -6  $flip -o temp_image4.jpg"  
+ Capture5="$camera $preview -ev -24 $flip -o temp_image5.jpg"  
 
-# Construct Camera Command:
-#if [ $cam == 'picam' ]
-    Capture1="$camera $preview -ev 0   $flip -o temp_image1.jpg"  
-    Capture2="$camera $preview -ev 12  $flip -o temp_image2.jpg"  
-    Capture3="$camera $preview -ev -12 $flip -o temp_image3.jpg"  
-    Capture4="$camera $preview -ev 24  $flip -o temp_image4.jpg"  
-    Capture5="$camera $preview -ev -24 $flip -o temp_image5.jpg"  
-#fi
-
-#  For using Webcam instead:
-#    webcam_config="-r 4000x3000 --no-banner -d /dev/video0 --skip 50 -F 5"
-#    Capture$n="fswebcam $webcam_config -s brightness=$BR% -s contrast=20%  temp_image$n.jpg"  
+# For using Webcam instead:
+# webcam_config="-r 4000x3000 --no-banner -d /dev/video0 --skip 50 -F 5"
+# Capture$n="fswebcam $webcam_config -s brightness=$BR% -s contrast=20%  temp_image$n.jpg"  
 
 
