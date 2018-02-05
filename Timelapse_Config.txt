@@ -9,7 +9,7 @@ LOCATION="PiCamX"
 EMAIL="picamtimelapse@gmail.com"
 
 # Time interval in seconds between HDR shots.  
-INTERVAL=150
+INTERVAL=100
 
 # Directory paths:
 TOPDIR=/$HOME/Desktop/AveragePhotography/
@@ -19,9 +19,6 @@ FUZZDIR=/$TOPDIR/FuzzDirectory/
 
 # Image processing options:
 #--------------------------------------------------------------------
-# Image Alignment: uses 'align_image_stack' for better HDR results. 
-ALIGN=false
-
 # Subtract background: creates second set of averaging subtracting averaged background. . 
 BGROUND=true
 
