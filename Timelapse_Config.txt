@@ -8,7 +8,7 @@ LOCATION="PiCamX"
 # Email address to send pictures to: (set up /etc/smtp/smtp.conf) 
 EMAIL="picamtimelapse@gmail.com"
 
-# Time interval in seconds between HDR shots.  
+# Interval length (in seconds) between HDR shots.  
 INTERVAL=100
 
 # Directory paths:
@@ -16,11 +16,14 @@ TOPDIR=/$HOME/Desktop/AveragePhotography/
 ARCHIVE=/$TOPDIR/FrameArchive/
 ARCHIVE7=/$TOPDIR/FrameArchive7day/
 ARCHIVE30=/$TOPDIR/FrameArchive30day/
+ARCHIVEMOVEMENT=/$TOPDIR/FrameArchiveMovement/
+
+
 
 # Image processing options:
 #--------------------------------------------------------------------
-# Subtract background: creates second set of averaging subtracting averaged background. . 
-BGROUND=true
+# Create movement image by subtracting averaged background.
+MOVEMENT=true
 
 # Light level cutoff
 # Option to ignore photographs beyond certain light levels. Useful if scenes are too dark. 
@@ -43,8 +46,8 @@ preview="-p 10,10,320,240"
 # Construct Camera Capture commands:
  Capture1="$camera $preview -ev 0   $flip -o temp_image1.jpg"  
  Capture2="$camera $preview -ev 6   $flip -o temp_image2.jpg"  
- Capture3="$camera $preview -ev 24  $flip -o temp_image3.jpg"  
- Capture4="$camera $preview -ev -6  $flip -o temp_image4.jpg"  
+ Capture3="$camera $preview -ev 18  $flip -o temp_image3.jpg"  
+ Capture4="$camera $preview -ev -18 $flip -o temp_image4.jpg"  
  Capture5="$camera $preview -ev -24 $flip -o temp_image5.jpg"  
 
 # For using Webcam instead:

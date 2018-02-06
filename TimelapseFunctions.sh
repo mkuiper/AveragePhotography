@@ -75,9 +75,22 @@ if [ ! -f "running_7day_average_image.tif" ] ; then
 fi
 
 if [ ! -f "running_30day_average_image.tif" ] ; then
- cp current_hdr_image.tif running_7day_average_image.tif 
+ cp current_hdr_image.tif running_30day_average_image.tif 
  echo "copied current_hdr_image.tif to running_30day_average_image.tif" >>  last_mesg.txt
 fi
+if [ ! -f "yesterday_average.tif" ] ; then
+ cp current_hdr_image.tif yesterday_average.tif 
+ echo "copied current_hdr_image.tif to yesterday_average.tif" >>  last_mesg.txt
+fi
+}
+
+#-----------------------------------------------------------------------
+function make_difference_image() {
+# function to subtract yesterdays average from current hdr 
+
+composite current_hdr_image.tif yesterday_average.tif  \
+     -compose difference current_movement_image.png 
+convert current_movement_image.png -fuzz 10% -transparent black current_movement_image.png
 }
 
 #-----------------------------------------------------------------------

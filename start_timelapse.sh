@@ -25,12 +25,20 @@ do
   echo "-made HDR image"
  
   check_light_levels      # process images if light levels within boundaries
-  if $Light ;  
-    then 
-    let COUNTER=COUNTER+1  # counter for working out blending %
-    make_average_image current_hdr_image.tif working_average_image.tif $COUNTER
-    echo "Image count: $PICTURENO" >>last_mesg.txt
-  fi 
+
+  if $Light ;             # add hdr image proportionally to working average image  
+   then 
+   let COUNTER=COUNTER+1  # counter for working out blending %
+   make_average_image current_hdr_image.tif working_average_image.tif $COUNTER
+   echo "Image count: $COUNTER" >> last_mesg.txt
+  
+  fi  
+  # for later:
+  # if $MOVEMENT ;        # create 'movement' image but subtracting averaged background
+  #   then
+  #   make_difference_image  
+  #   make_average_image current_movement_image.png working_movement_image.png $COUNTER
+  # fi 
 
   cleanup_files 
   sanity_check
