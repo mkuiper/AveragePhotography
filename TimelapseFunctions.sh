@@ -28,7 +28,7 @@ fi
 ## Option to turn off hdmi to save power while taking photos
 if [ "$HDMI" == true ] ; then
  tvservice -o
- echo "Turning off HDMI." > last_mesg.txt
+ echo "Turning off HDMI." >> last_mesg.txt
 fi
 }
 
@@ -40,7 +40,7 @@ STARTDATE=`date +%Y-%m-%d`
 DATE=$STARTDATE
 TIME=`date +%H:%M`
 echo $(printf "Date: %s Time: %s Location: %s Interval: %s  " \
-     "$DATE" "$TIME" "$LOCATION" "$INTERVAL" ) >>logfile.txt
+     "$DATE" "$TIME" "$LOCATION" "$INTERVAL" ) >> log_file.txt
 }
 
 #-----------------------------------------------------------------------
@@ -134,14 +134,14 @@ function sanity_check() {
 
 if [ -f "pause_timelapse.txt" ]; then
  echo "-pause flag present > exiting "
- echo $(printf "Pause flag present: stopping time lapse at %s" "$TIMENOW" ) >>logfile.txt
+ echo $(printf "Pause flag present: stopping time lapse at %s" "$TIMENOW" ) >>log_file.txt
  exit
 fi
 
 # Sanity check: -stop if too many images gathered without processing.
 if [ $COUNTER -gt "5000" ]; then
  echo "Warning: over 5000 images captured without daily reset: Are you sure you set thing up right?"
- echo $(printf "5000 images generated without processing: stopping time lapse at %s" "$TIMENOW" ) >>logfile.txt
+ echo $(printf "5000 images generated without processing: stopping time lapse at %s" "$TIMENOW" ) >>log_file.txt
  exit
 fi
 }
@@ -179,7 +179,7 @@ FINISH=`date +%Y-%m-%d_%H:%M`
 time2=`date +%s`
 let time3=" $time2 - $time1 "
 
-echo $(printf "Finished daily processing: %s     %s images \n"  "$FINISH" "$PICTURENO") >> logfile.txt
+echo $(printf "Finished daily processing: %s     %s images \n"  "$FINISH" "$PICTURENO") >> log_file.txt
 
 } 
 

@@ -8,7 +8,7 @@
  TIME=`date +%H:%M`
  time1=`date +%s`
 
- echo $(printf "Start image averaging: %s  %s"  "$DATE" "$TIME") >> logfile.txt
+ echo $(printf "Start image averaging: %s  %s"  "$DATE" "$TIME") >> log_file.txt
  echo "-making daily average image"
 
 #>---------------------------------------------------------------------
@@ -24,13 +24,18 @@
 
  AVEIMG_7=$(printf "%s_%s_7day.jpg" "$LOCATION" "$DATE" )
  AVEIMG_30=$(printf "%s_%s_30day.jpg" "$LOCATION" "$DATE" )
+
  convert running_7day_average_image.tif  -quality 100 $AVEIMG_7
  convert running_30day_average_image.tif -quality 100 $AVEIMG_30
+
  cp $AVEIMG_7  $ARCHIVE7
  cp $AVEIMG_30 $ARCHIVE30
 
-# email daily result
- mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG  $EMAIL
+# email daily result:
+ mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG    $EMAIL
+
+#mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_7  $EMAIL
+#mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_30 $EMAIL
 
  cleanup_files
  record_finish

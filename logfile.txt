@@ -1,7 +1,0 @@
-Start image averaging: 2018-02-06 06:55
-Start image averaging: 2018-02-06 06:57
-Start image averaging: 2018-02-06 06:57
-Start image averaging: 2018-02-06 06:58
-Processing time: 66 seconds for images
-Start image averaging: 2018-02-06 07:12
-Finished daily processing: 2018-02-06_07:13 images
