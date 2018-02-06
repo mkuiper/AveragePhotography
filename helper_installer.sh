@@ -31,7 +31,7 @@ sudo sed -i 's/.*start_x=.*/start_x=1/' /boot/config.txt
 
 echo " ToDo checklist:" 
 echo " -make sure to check the date and time."
-##  install rpi2dng
+## install rpi2dng
 ## libjpeg
 ## make default crontab? 
 ## ufraw ??

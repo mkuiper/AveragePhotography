@@ -1,7 +1,7 @@
 #!/bin/bash
 # A simple bash script to collect and process HDR images as a timelapse
 # to be averaged on a daily/weekly/monthly basis. Ensure to commit a proper schedule in 
-# the crontab. Make sure to read the Job_scheduling.README
+# the crontab. Make sure to read the README.txt
 
 ##
 # You should only have to edit the Timelapse_Config.txt file. 

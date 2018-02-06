@@ -26,13 +26,12 @@
  AVEIMG_30=$(printf "%s_%s_30day.jpg" "$LOCATION" "$DATE" )
  convert running_7day_average_image.tif  -quality 100 $AVEIMG_7
  convert running_30day_average_image.tif -quality 100 $AVEIMG_30
- cp $AVEIMG_7  $ARCHIVE
- cp $AVEIMG_30 $ARCHIVE
+ cp $AVEIMG_7  $ARCHIVE7
+ cp $AVEIMG_30 $ARCHIVE30
 
 # email daily result
  mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG  $EMAIL
 
  cleanup_files
  record_finish
-
 

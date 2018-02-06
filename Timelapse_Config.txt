@@ -13,9 +13,9 @@ INTERVAL=100
 
 # Directory paths:
 TOPDIR=/$HOME/Desktop/AveragePhotography/
-WRKDIR=/$TOPDIR/WorkingDirectory/
 ARCHIVE=/$TOPDIR/FrameArchive/
-FUZZDIR=/$TOPDIR/FuzzDirectory/
+ARCHIVE7=/$TOPDIR/FrameArchive7day/
+ARCHIVE30=/$TOPDIR/FrameArchive30day/
 
 # Image processing options:
 #--------------------------------------------------------------------
@@ -39,7 +39,6 @@ HDR=true
 flip="-hf -vf"
 camera="raspistill -q 100"
 preview="-p 10,10,320,240"
-
  
 # Construct Camera Capture commands:
  Capture1="$camera $preview -ev 0   $flip -o temp_image1.jpg"  
