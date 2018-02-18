@@ -112,19 +112,18 @@ fi
 #-----------------------------------------------------------------------
 function make_average_image() {
 # function to average working image. 
-# needs 3 arguments: current_image  average_image  blend_ratio(integer)
+# needs 3 arguments: current_image  average_image  image_number (to work out blend ratio) 
 # (modified from www.imagemagick.org/discorse-server/viewtopic.php?t=21279)
 
-
 convert $2 tmp.mpc
-
 i=$3
-j=$((i+1)) 
-# calculate blending percentages
-new=`convert xc: -format "%[fx:100/$j]" info:`
+
+# calculate blending percentages:
+new=`convert xc: -format "%[fx:100/$i]" info:`
 old=`convert xc: -format "%[fx:100-$new]" info:`
 
-echo $i $j $new $old
+echo "image_blending: $old $new " >> last_mesg.txt
+
 composite -blend $old%x$new% tmp.mpc $1 tmp.mpc
 
 convert tmp.mpc $2 
