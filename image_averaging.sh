@@ -20,6 +20,7 @@
 
 #>---------------------------------------------------------------------
 # make running weekly and monthly (30 day) averages:  
+
  make_average_image working_average_image.tif running_7day_average_image.tif 6 
  make_average_image working_average_image.tif running_30day_average_image.tif 29 
 
@@ -38,10 +39,12 @@
 
 # email daily result:
  mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG    $EMAIL
+ mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_7  $EMAIL
 
-# mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_7  $EMAIL
 # mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_30 $EMAIL
 
  cleanup_files
+ rm working_average_image.tif
  record_finish
+
 

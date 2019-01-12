@@ -29,8 +29,8 @@ MOVEMENT=true
 # Option to ignore photographs beyond certain light levels. Useful if scenes are too dark. 
 # The images will only be included in the daily average if the greyscaled 
 # image intensity fall between the lower and upper bounds. 0(black)-255(white) 
-LIGHT_LOWER=50 
-LIGHT_UPPER=200
+LIGHT_LOWER=30 
+LIGHT_UPPER=220
 
 # Power saving: Option to turn off HDMI to save power. 
 HDMI=false

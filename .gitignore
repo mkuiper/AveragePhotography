@@ -4,7 +4,9 @@
 *.png
 
 # WorkingDirectory/
-# FrameArchive/ 
+FrameArchive/ 
+FrameArchive7day/ 
+FrameArchive30day/ 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

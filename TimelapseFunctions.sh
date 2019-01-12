@@ -45,8 +45,8 @@ echo $(printf "Date: %s Time: %s Location: %s Interval: %s  " \
 
 #-----------------------------------------------------------------------
 function capture_images() {
-## Capture images for processing including HDR (High Dynamic Range):
-## (set in Timelapse_config file, up to 10 capture commands)
+# Capture images for processing including HDR (High Dynamic Range):
+# (set in Timelapse_config file, up to 10 capture commands)
 
 echo "-grabbing images for HDR"
 for i in {1..10}
@@ -120,28 +120,18 @@ i=$3
 
 # calculate blending percentages:
 new=`convert xc: -format "%[fx:100/$i]" info:`
-old=`convert xc: -format "%[fx:100-$new]" info:`
+old=`convert xc: -format "%[fx:(100-(100/$i))]" info:`
 
 echo "image_blending: $old $new " >> last_mesg.txt
-
 composite -blend $old%x$new% tmp.mpc $1 tmp.mpc
-
 convert tmp.mpc $2 
-
 rm tmp.mpc
 
 }
 
 #-----------------------------------------------------------------------
-function cleanup_files() {
-# cleanup temporary files:
-
-rm temp_image*
-}
-
-#-----------------------------------------------------------------------
 function sanity_check() {
-## check to see things are running as expected. 
+# Check to see things are running as expected. 
 # A conditional test to stop the timelapse (checks for presence of flag file).
 
 if [ -f "pause_timelapse.txt" ]; then
@@ -151,6 +141,7 @@ if [ -f "pause_timelapse.txt" ]; then
 fi
 
 # Sanity check: -stop if too many images gathered without processing.
+
 if [ $COUNTER -gt "5000" ]; then
  echo "Warning: over 5000 images captured without daily reset: Are you sure you set thing up right?"
  echo $(printf "5000 images generated without processing: stopping time lapse at %s" "$TIMENOW" ) >>log_file.txt
@@ -177,9 +168,10 @@ fi
 
 #-----------------------------------------------------------------------
 function cleanup_files() {
-# simple cleanup commands
+# simple file cleanup commands
 rm tmp.cache
 rm *.jpg
+rm temp_image*
 
 }
 #-----------------------------------------------------------------------
@@ -192,6 +184,8 @@ time2=`date +%s`
 let time3=" $time2 - $time1 "
 
 echo $(printf "Finished daily processing: %s     %s images \n"  "$FINISH" "$PICTURENO") >> log_file.txt
+
+
 
 } 
 
