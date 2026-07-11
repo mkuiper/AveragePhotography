@@ -1,47 +1,46 @@
-#!/bin/bash
-# A simple bash script to collect and process HDR images as a timelapse
-# to be averaged on a daily/weekly/monthly basis. Ensure to commit a proper schedule in 
-# the crontab. Make sure to read the README.txt
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-##
-# You should only have to edit the Timelapse_Config.txt file. 
-##
+PROJECT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=TimelapseFunctions.sh
+source "$PROJECT_DIR/TimelapseFunctions.sh"
 
- source TimelapseFunctions.sh
+read_timelapse_config
+prepare_workspace
+acquire_capture_lock
+validate_runtime
+initialize_timelapse
+log "Capture started: location=$LOCATION interval=${INTERVAL}s light=${LIGHT_LOWER}-${LIGHT_UPPER}."
 
- read_timelapse_config
- cd $TOPDIR
- initialize_timelapse
- log_date_and_location
+counter=$(read_persisted_count "$COUNT_FILE" working_average_image.tif)
+movement_counter=0
+if [[ "$MOVEMENT" == true ]]; then
+  movement_counter=$(read_persisted_count "$MOVEMENT_COUNT_FILE" working_movement_average.tif)
+fi
+trap 'cleanup_temporary_files' EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
-# Take series of timelapse images until told to stop:
-COUNTER=0
-while : 
-do
-  time1=`date +%s`       # take time to figure out image processing time
-
+while sanity_check "$counter"; do
+  started_at=$(date +%s)
   capture_images
-  make_HDR_image
-  echo "-made HDR image"
- 
-  check_light_levels      # process images if light levels within boundaries
+  make_hdr_image
 
-  if $Light ;             # add hdr image proportionally to working average image  
-   then
-   let COUNTER=COUNTER+1  # counter for working out blending %
-   make_average_image current_hdr_image.tif working_average_image.tif $COUNTER
-   echo "Image count: $COUNTER" >> last_mesg.txt
-  fi  
- 
-  # for later:
-  # if $MOVEMENT ;        # create 'movement' image but subtracting averaged background
-  #   then
-  #   make_difference_image  
-  #   make_average_image current_movement_image.png working_movement_image.png $COUNTER
-  # fi 
+  if check_light_levels; then
+    ((counter += 1))
+    make_average_image current_hdr_image.tif working_average_image.tif "$counter"
+    persist_count "$COUNT_FILE" "$counter"
+    if [[ "$MOVEMENT" == true ]]; then
+      ((movement_counter += 1))
+      make_movement_image
+      make_average_image current_movement_image.png working_movement_average.tif "$movement_counter"
+      persist_count "$MOVEMENT_COUNT_FILE" "$movement_counter"
+    fi
+    printf 'Accepted image count: %s\n' "$counter" >>"$STATUS_FILE"
+  else
+    log "Frame rejected by light-level limits."
+  fi
 
-  cleanup_files 
-  sanity_check
-  check_sleeptime
+  cleanup_temporary_files
+  sleep_until_next_capture "$started_at"
 done
-

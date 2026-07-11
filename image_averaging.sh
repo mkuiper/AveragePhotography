@@ -1,50 +1,51 @@
-#!/bin/bash
-# A script to do the average processing of images in the working directory.
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
- source TimelapseFunctions.sh
- read_timelapse_config
+PROJECT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=TimelapseFunctions.sh
+source "$PROJECT_DIR/TimelapseFunctions.sh"
 
- DATE=`date +%Y-%m-%d`
- TIME=`date +%H:%M`
- time1=`date +%s`
+read_timelapse_config
+prepare_workspace
+acquire_capture_lock
+require_command convert
+require_command composite
 
- echo $(printf "Start image averaging: %s  %s"  "$DATE" "$TIME") >> log_file.txt
- echo "-making daily average image"
+[[ -f working_average_image.tif ]] || die "No daily average exists; run start_timelapse.sh first"
 
-#>---------------------------------------------------------------------
- AVEIMG=$(printf "%s_%s.jpg" "$LOCATION" "$DATE" )
- echo "$AVEIMG"
- convert working_average_image.tif -quality 100 $AVEIMG
- cp $AVEIMG $ARCHIVE
- cp working_average_image.tif yesterday_average.tif
+date_stamp=$(date +%Y-%m-%d)
+daily_image="${LOCATION}_${date_stamp}.jpg"
+weekly_image="${LOCATION}_${date_stamp}_7day.jpg"
+monthly_image="${LOCATION}_${date_stamp}_30day.jpg"
 
-#>---------------------------------------------------------------------
-# make running weekly and monthly (30 day) averages:  
+log "Daily archive processing started."
+convert working_average_image.tif -quality 100 "$daily_image"
+cp -- "$daily_image" "$ARCHIVE/"
+cp -- working_average_image.tif yesterday_average.tif
 
- make_average_image working_average_image.tif running_7day_average_image.tif 6 
- make_average_image working_average_image.tif running_30day_average_image.tif 29 
+# Exponential rolling averages: today's image contributes 1/7 or 1/30.
+make_average_image working_average_image.tif running_7day_average_image.tif 7
+make_average_image working_average_image.tif running_30day_average_image.tif 30
+convert running_7day_average_image.tif -quality 100 "$weekly_image"
+convert running_30day_average_image.tif -quality 100 "$monthly_image"
+cp -- "$weekly_image" "$ARCHIVE7/"
+cp -- "$monthly_image" "$ARCHIVE30/"
 
- AVEIMG_7=$(printf "%s_%s_7day.jpg" "$LOCATION" "$DATE" )
- AVEIMG_30=$(printf "%s_%s_30day.jpg" "$LOCATION" "$DATE" )
- AVEIMG_MOVEMENT=$(printf "%s_%s_movment.jpg" "$LOCATION" "$DATE" )
+attachments=("$daily_image" "$weekly_image")
+if [[ "$MOVEMENT" == true && -f working_movement_average.tif ]]; then
+  movement_image="${LOCATION}_${date_stamp}_movement.jpg"
+  convert working_movement_average.tif -quality 100 "$movement_image"
+  cp -- "$movement_image" "$ARCHIVEMOVEMENT/"
+  attachments+=("$movement_image")
+  rm -f -- working_movement_average.tif
+fi
 
- convert running_7day_average_image.tif  -quality 100 $AVEIMG_7
- convert running_30day_average_image.tif -quality 100 $AVEIMG_30
- convert working_movement_average.tif -quality 100 $AVEIMG_MOVEMENT
+if [[ -n "$EMAIL" ]]; then
+  require_command mpack
+  for attachment in "${attachments[@]}"; do
+    mpack -s "Timelapse image: $LOCATION $date_stamp" "$attachment" "$EMAIL"
+  done
+fi
 
- cp $AVEIMG_7  $ARCHIVE7
- cp $AVEIMG_30 $ARCHIVE30
- cp $AVEIMG_MOVEMENT  $ARCHIVEMOVEMENT
-
-
-# email daily result:
- mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG    $EMAIL
- mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_7  $EMAIL
-
-# mpack -s "timelapse image: $LOCATION $DATE" $AVEIMG_30 $EMAIL
-
- cleanup_files
- rm working_average_image.tif
- record_finish
-
-
+rm -f -- "${attachments[@]}" "$monthly_image" working_average_image.tif "$COUNT_FILE" "$MOVEMENT_COUNT_FILE"
+log "Daily archive processing finished."

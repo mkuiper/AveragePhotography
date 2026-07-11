@@ -1,57 +1,30 @@
-#=====================================================================
-# Timelapse configuration file.
-#=====================================================================
+# AveragePhotography configuration. This file is sourced by Bash.
 
-# Short description of location. (used for file names,-no white spaces)
+# Short, filename-safe identifier for the camera/location.
 LOCATION="PiCamX"
 
-# Email address to send pictures to: (set up /etc/smtp/smtp.conf) 
-EMAIL="picamtimelapse@gmail.com"
+# All runtime state and output is stored here. The default keeps it in this repo.
+TOPDIR="${PROJECT_DIR}"
 
-# Interval length (in seconds) between HDR shots.  
 INTERVAL=100
-
-# Directory paths:
-TOPDIR=/$HOME/Desktop/AveragePhotography/
-ARCHIVE=/$TOPDIR/FrameArchive/
-ARCHIVE7=/$TOPDIR/FrameArchive7day/
-ARCHIVE30=/$TOPDIR/FrameArchive30day/
-ARCHIVEMOVEMENT=/$TOPDIR/FrameArchiveMovement/
-
-
-
-# Image processing options:
-#--------------------------------------------------------------------
-# Create movement image by subtracting averaged background.
-MOVEMENT=true
-
-# Light level cutoff
-# Option to ignore photographs beyond certain light levels. Useful if scenes are too dark. 
-# The images will only be included in the daily average if the greyscaled 
-# image intensity fall between the lower and upper bounds. 0(black)-255(white) 
-LIGHT_LOWER=30 
+MAX_DAILY_IMAGES=5000
+LIGHT_LOWER=30
 LIGHT_UPPER=220
 
-# Power saving: Option to turn off HDMI to save power. 
+# Optional features.
+MOVEMENT=false
 HDMI=false
+EMAIL="" # Set an address only after mpack/mail delivery is configured.
 
-# HDR - high dynamic range. This requires at least 3 images, with under and over exposed samples. 
-HDR=true 
+# Camera command and exposure bracket. Each item must be a separate array element.
+# For current Raspberry Pi OS, replace raspistill with an appropriate rpicam-still
+# command and adjust its exposure option as needed.
+CAMERA_COMMAND=(raspistill -q 100 -p 10,10,320,240 -hf -vf)
+EXPOSURE_FLAG="-ev"
+EXPOSURES=(0 6 18 -18 -24)
 
-# Image capture commands: 
-flip="-hf -vf"
-camera="raspistill -q 100"
-preview="-p 10,10,320,240"
- 
-# Construct Camera Capture commands:
- Capture1="$camera $preview -ev 0   $flip -o temp_image1.jpg"  
- Capture2="$camera $preview -ev 6   $flip -o temp_image2.jpg"  
- Capture3="$camera $preview -ev 18  $flip -o temp_image3.jpg"  
- Capture4="$camera $preview -ev -18 $flip -o temp_image4.jpg"  
- Capture5="$camera $preview -ev -24 $flip -o temp_image5.jpg"  
-
-# For using Webcam instead:
-# webcam_config="-r 4000x3000 --no-banner -d /dev/video0 --skip 50 -F 5"
-# Capture$n="fswebcam $webcam_config -s brightness=$BR% -s contrast=20%  temp_image$n.jpg"  
-
-
+# Optional overrides (defaults are below):
+# ARCHIVE="$TOPDIR/FrameArchive"
+# ARCHIVE7="$TOPDIR/FrameArchive7day"
+# ARCHIVE30="$TOPDIR/FrameArchive30day"
+# ARCHIVEMOVEMENT="$TOPDIR/FrameArchiveMovement"

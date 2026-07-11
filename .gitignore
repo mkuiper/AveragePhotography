@@ -2,6 +2,14 @@
 *.tif
 *.jpg
 *.png
+auth.json
+last_message.txt
+last_mesg.txt
+pause_timelapse.txt
+log_file.txt
+.capture.lock
+.accepted_frame_count
+.movement_frame_count
 
 # WorkingDirectory/
 FrameArchive/ 

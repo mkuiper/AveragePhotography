@@ -1,15 +1,15 @@
-#!/bin/bash
-# A simple bash script to stop the timelapse. 
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-# Read in configuration variables.  
- source TimelapseFunctions.sh
- read_timelapse_config
- cd $TOPDIR
- DATE=`date +%Y-%m-%d`
- TIME=`date +%H:%M`
+PROJECT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=TimelapseFunctions.sh
+source "$PROJECT_DIR/TimelapseFunctions.sh"
 
+read_timelapse_config
+prepare_workspace
+touch "$PAUSE_FILE"
+log "Stop requested; capture will stop after the current processing step."
 
-# turn on HDMI? 
- touch pause_timelapse.txt   # create pause flag
- echo $(printf "stopping timelapse at %s %s" "$DATE $TIME" ) 
- echo $(printf "stopping timelapse at %s %s" "$DATE $TIME" ) >>log_file.txt
+if [[ "$HDMI" == true ]] && command -v tvservice >/dev/null 2>&1; then
+  tvservice -p || true
+fi
